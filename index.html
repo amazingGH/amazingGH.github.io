@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>通用的正则验证方式,可替换正则后使用</title>
+    <meta name="generator" content="VuePress 1.9.8">
+    
+    <meta name="description" content="">
+    
+    <link rel="preload" href="/assets/css/0.styles.d6ad21ed.css" as="style"><link rel="preload" href="/assets/js/app.3b161b86.js" as="script"><link rel="preload" href="/assets/js/2.6430ac10.js" as="script"><link rel="preload" href="/assets/js/7.63226700.js" as="script"><link rel="prefetch" href="/assets/js/3.661315bf.js"><link rel="prefetch" href="/assets/js/4.4b2d10a4.js"><link rel="prefetch" href="/assets/js/5.91247ced.js"><link rel="prefetch" href="/assets/js/6.aeb7dc84.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.d6ad21ed.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" aria-current="page" class="home-link router-link-exact-active router-link-active"></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="通用的正则验证方式-可替换正则后使用"><a href="#通用的正则验证方式-可替换正则后使用" class="header-anchor">#</a> 通用的正则验证方式,可替换正则后使用</h2> <div class="language- extra-class"><pre class="language-text"><code>
+/**
+* @return {boolean}
+*/
+function test(str) {
+    const reg =/test/; //测试
+    return reg.test(str);
+ }
+
+</code></pre></div><h3 id="身份证验证"><a href="#身份证验证" class="header-anchor">#</a> 身份证验证</h3> <div class="language- extra-class"><pre class="language-text"><code>         /**
+          * @return {boolean}
+          */
+         function IsCard(str) {
+                 &lt;!--严格校验--&gt;
+                 const reg = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+                 return reg.test(str);
+         }
+
+         // 备选校验规则  仅做位数校验
+         const reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+
+</code></pre></div><h2 id="文件名命名规范"><a href="#文件名命名规范" class="header-anchor">#</a> 文件名命名规范</h2> <div class="language- extra-class"><pre class="language-text"><code>const reg = new RegExp('[\\\\/:*?\&quot;&lt;&gt;|]');
+if(reg.test('hellloworld')) {
+       console.log('文件名不能包含【\\\\/:*?\&quot;&lt;&gt;|】这些非法字符,请修改!')
+       return false
+       }
+
+
+//remarks:上述正则可以修改为验证是否包含指定字符，将内部符号文本替换即可，特殊字符前需加上转义字符\
+</code></pre></div><h3 id="手机号验证"><a href="#手机号验证" class="header-anchor">#</a> 手机号验证</h3> <div class="language- extra-class"><pre class="language-text"><code>/^1\d{10}/
+
+</code></pre></div><h3 id="统一社会信用码验证"><a href="#统一社会信用码验证" class="header-anchor">#</a> 统一社会信用码验证</h3> <div class="language- extra-class"><pre class="language-text"><code>/^[^_IOZSVa-z\W]{2}\d{6}[^_IOZSVa-z\W]{10}$/g
+
+</code></pre></div><h3 id="邮箱验证"><a href="#邮箱验证" class="header-anchor">#</a> 邮箱验证</h3> <div class="language- extra-class"><pre class="language-text"><code>/^[A-Za-zd0-9]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/
+
+</code></pre></div><h3 id="匹配指定标签之间的内容"><a href="#匹配指定标签之间的内容" class="header-anchor">#</a> 匹配指定标签之间的内容</h3> <p><a href="https://blog.51cto.com/u_15079076/3481040" target="_blank" rel="noopener noreferrer">参考文章<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// 匹配返回内容包含 /n</span>
+<span class="token keyword">const</span> reg <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">&lt;template&gt;([\s\S]*?)&lt;\/template&gt;</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.3b161b86.js" defer></script><script src="/assets/js/2.6430ac10.js" defer></script><script src="/assets/js/7.63226700.js" defer></script>
+  </body>
+</html>
